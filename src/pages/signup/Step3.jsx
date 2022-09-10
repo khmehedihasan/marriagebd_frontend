@@ -6,7 +6,7 @@ import { Alert2, AlertContainer } from '../../components/Alert';
 import { Form, FormContainer, Select, Option, Button1, Button2, Textarea } from '../../components/Input';
 import { useSelector } from 'react-redux';
 
-function SignUp(){
+function Step3(){
 
 
     const [input, setInput] = useState({educationDetails:'', workingSector:'Private Company', educationQualification:'Bachelors', professionDetails:'', profession:'IT & Software Engineering', income:'BDT 21k to 40k'});
@@ -103,4 +103,4 @@ function SignUp(){
     )
 }
 
-export default SignUp;
+export default Step3;
