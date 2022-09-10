@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Signup from './pages/signup/Signup';
 import Step2 from './pages/signup/Step2';
 import Step3 from './pages/signup/Step3';
+import Step4 from './pages/signup/Step4';
 
 function App() {
   firstLoad();
@@ -20,6 +21,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/signup/step_2' element={<Step2 />} />
         <Route path='/signup/step_3' element={<Step3 />} />
+        <Route path='/signup/step_4' element={<Step4 />} />
     </Routes>
   );
 }
