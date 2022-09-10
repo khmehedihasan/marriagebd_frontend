@@ -5,7 +5,7 @@ import Nav from '../../components/Nav';
 import { Alert2, AlertContainer } from '../../components/Alert';
 import { Form, FormContainer, Input, Select, Option, Button1, Button2 } from '../../components/Input';
 
-function SignUp(){
+function Step2(){
 
 
     const [input, setInput] = useState({candidateName:'', birthDate:'', profileFor:'Self', religion:'Muslim', maritalStatus:'UnMarried', nationality:'bangladashi', gender:'Male'});
@@ -99,4 +99,4 @@ function SignUp(){
     )
 }
 
-export default SignUp;
+export default Step2;
