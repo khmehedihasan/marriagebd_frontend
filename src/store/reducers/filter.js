@@ -3,7 +3,9 @@ const initialState = {
         home_division:[],
         living_country:[],
         professional_area:[],
-        working_sector:[]
+        working_sector:[],
+        height:[],
+        weight:[],
 }
 
 function filter(state = initialState, action){
