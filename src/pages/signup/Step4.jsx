@@ -51,7 +51,7 @@ function Step4(){
             </div>
             <FormContainer>
                 <Form title="Family & Location">
-
+                    <h1 className=" text-green-600 font-bold text-right">50% Complete</h1 >
                     <Select onChange={(e)=> set(e)} name="fatherStatus" value={input.fatherStatus} id="fatherStatus" label="Father Status:">
                         <Option value="Employed" >Employed</Option>
                         <Option value="Unemployed" >Unemployed</Option>
@@ -72,7 +72,7 @@ function Step4(){
                     <Input onChange={(e)=> set(e)} className=" border border-red-600 rounded-sm outline-1 outline-blue-500 text-red-500 py-1 px-2" value={input.motherOccupation} type="text" name="motherOccupation" id="motherOccupation" placeholder="Enter your Mother occupation:" label="Mother Occupation:" />
 
                     <label htmlFor=" ">Your Siblings:</label>
-                    <div className=" flex gap-5">
+                    <div className=" flex flex-wrap gap-5">
                         <div className=" w-max border border-red-600 flex flex-col p-2 text-center">
                             <i className="fa-solid fa-person text-3xl text-red-600"></i>
                             <div className=" flex gap-2">
