@@ -4,13 +4,16 @@ import firstLoad from './hooks/firstLoad';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Login from './pages/Login';
+import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
 import Step2 from './pages/signup/Step2';
 import Step3 from './pages/signup/Step3';
 import Step4 from './pages/signup/Step4';
 import Step5 from './pages/signup/Step5';
 import Step6 from './pages/signup/Step6';
+import Step7 from './pages/signup/Step7';
+import Verify from './pages/signup/Verify';
+import Forgot from './pages/login/Forgot';
 
 function App() {
   firstLoad();
@@ -26,6 +29,9 @@ function App() {
         <Route path='/signup/step_4' element={<Step4 />} />
         <Route path='/signup/step_5' element={<Step5 />} />
         <Route path='/signup/step_6' element={<Step6 />} />
+        <Route path='/signup/step_7' element={<Step7 />} />
+        <Route path='/signup/verify/:id' element={<Verify />} />
+        <Route path='/logIn/forgotPassword' element={<Forgot />} />
     </Routes>
   );
 }
