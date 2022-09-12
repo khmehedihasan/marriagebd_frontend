@@ -49,7 +49,7 @@ function Step2(){
             </div>
             <FormContainer>
                 <Form title="Basic Info">
-
+                    <h1 className=" text-green-600 font-bold text-right">10% Complete</h1 >
                     <Select onChange={(e)=> set(e)} name="profileFor" value={input.profileFor} id="profileFor" label="Profile Create For:">
                         <Option value="Self" >Self</Option>
                         <Option value="Brother" >Brother</Option>
