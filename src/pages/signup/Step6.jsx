@@ -49,7 +49,7 @@ function Step6(){
             </div>
             <FormContainer>
                 <Form title="Life Style">
-
+                    <h1 className=" text-green-600 font-bold text-right">90% Complete</h1 >
                     <Select onChange={(e)=> set(e)} name="religiousValue" value={input.religiousValue} id="religiousValue" label="Religious Value:">
                         <Option value="Very Religious" >Very Religious</Option>
                         <Option value="Religious" > Religious</Option>
