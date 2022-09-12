@@ -52,7 +52,7 @@ function Step5(){
             </div>
             <FormContainer>
                 <Form title="Physical Attribute">
-
+                    <h1 className=" text-green-600 font-bold text-right">70% Complete</h1 >
                     <Select onChange={(e)=> set(e)} name="height" value={input.height} id="height" label="Height:">
                         {
                             height.map((data, index)=>{
