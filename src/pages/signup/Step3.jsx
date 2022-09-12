@@ -53,7 +53,7 @@ function Step3(){
             </div>
             <FormContainer>
                 <Form title="Education & Career">
-
+                    <h1 className=" text-green-600 font-bold text-right">30% Complete</h1 >
                     <Select onChange={(e)=> set(e)} name="educationQualification" value={input.educationQualification} id="educationQualification" label="Highest Qualification:">
                         {
                             education.map((data, index)=>{
