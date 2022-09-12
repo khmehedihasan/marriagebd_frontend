@@ -8,7 +8,7 @@ import {Button1, Form, FormContainer, Input} from '../../components/Input'
 function SignUp(){
 
 
-    const [input, setInput] = useState({name:'', email:'', password:'', rpassword:''});
+    const [input, setInput] = useState({name:'', email:'', phone:'', password:'', rpassword:''});
     const [alert, setAlert] = useState([]);
     const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ function SignUp(){
 
 
     function save(){
-        if(input.name === '' || input.email === '' || input.password === '' || input.rpassword === '' ){
+        if(input.name === '' || input.email === '' || input.password === '' || input.rpassword === '' || input.phone === '' ){
             setAlert((alert)=>[...alert, <Alert2 key={ Date.now()} title="Faild!" message='All fields are required!' />]);
         }else{
             if( input.password === input.rpassword ){
@@ -35,7 +35,7 @@ function SignUp(){
     useEffect(()=>{
         const data = JSON.parse(localStorage.getItem("userInfo"));
         if(data !== null){
-            setInput({name:data.name, email:data.email, password:data.password, rpassword:data.rpassword});
+            setInput({name:data.name, email:data.email, password:data.password, rpassword:data.rpassword, phone:data.phone});
         }
     },[])
 
@@ -56,6 +56,8 @@ function SignUp(){
                     <Input onChange={(e)=> set(e)} value={input.name} type="text" name="name" id="name" placeholder="Enter your name:" label="Name:" />
 
                     <Input onChange={(e)=> set(e)} className=" border border-red-600 rounded-sm outline-1 outline-blue-500 text-red-500 py-1 px-2" value={input.email} type="text" name="email" id="email" placeholder="Enter your email:" label="Email:" />
+
+                    <Input onChange={(e)=> set(e)} className=" border border-red-600 rounded-sm outline-1 outline-blue-500 text-red-500 py-1 px-2" value={input.phone} type="text" name="phone" id="phone" placeholder="Enter your phone number:" label="Phone Number:" />
 
                     <Input onChange={(e)=> set(e)} className=" border border-red-600 rounded-sm outline-1 outline-blue-500 text-red-500 py-1 px-2" value={input.password} type="password" name="password" id="password" placeholder="Enter your password:" label="Password:" />
                     
