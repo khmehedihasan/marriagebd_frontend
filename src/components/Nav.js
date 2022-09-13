@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
+import useAuth from '../hooks/useAuth';
 
 function Nav(){
     const [style, setStyle] = useState("bg-none");
     const [bar, setBar] = useState("-ml-[400px]");
+    const { status } = useAuth();
 
 
     window.addEventListener("scroll", ()=>{
@@ -36,7 +38,11 @@ function Nav(){
                         <NavLink className={ ({isActive})=>isActive?' text-red-600 border-b border-red-600 transition ease-linear':` hover:text-red-600 border-b border-transparent hover:border-red-600 transition ease-linear `} to='/'>Home</NavLink>
                         <NavLink className={ ({isActive})=>isActive?' text-red-600 border-b border-red-600 transition ease-linear':` hover:text-red-600 border-b border-transparent hover:border-red-600 transition ease-linear `} to='/about'>About Us</NavLink>
                         <NavLink className={ ({isActive})=>isActive?' text-red-600 border-b border-red-600 transition ease-linear':` hover:text-red-600 border-b border-transparent hover:border-red-600 transition ease-linear `} to='/contact'>Contact Us</NavLink>
-                        <NavLink className={ ({isActive})=>isActive?' text-red-600 border-b border-red-600 transition ease-linear':` hover:text-red-600 border-b border-transparent hover:border-red-600 transition ease-linear `} to='/login'>Log In</NavLink>
+                        {
+                            status?<NavLink className={ ({isActive})=>isActive?' text-red-600 border-b border-red-600 transition ease-linear':` hover:text-red-600 border-b border-transparent hover:border-red-600 transition ease-linear `} to='/home'>Profile</NavLink>
+                            :
+                            <NavLink className={ ({isActive})=>isActive?' text-red-600 border-b border-red-600 transition ease-linear':` hover:text-red-600 border-b border-transparent hover:border-red-600 transition ease-linear `} to='/login'>Log In</NavLink>
+                        }
                     </div>
                     <button onClick={()=>toggle()} className=" sm:hidden text-3xl text-red-600"><i className="fa-solid fa-bars"></i></button>
                 </div>
@@ -45,7 +51,11 @@ function Nav(){
                 <NavLink className={ ({isActive})=>isActive?' text-white bg-red-600 px-4 rounded-[4px] transition ease-linear':` hover:text-white hover:bg-red-600 px-4 rounded-[4px] transition ease-linear `} to='/'>Home</NavLink>
                 <NavLink className={ ({isActive})=>isActive?' text-white bg-red-600 px-4 rounded-[4px] transition ease-linear':` hover:text-white hover:bg-red-600 px-4 rounded-[4px] transition ease-linear `} to='/about'>About Us</NavLink>
                 <NavLink className={ ({isActive})=>isActive?' text-white bg-red-600 px-4 rounded-[4px] transition ease-linear':` hover:text-white hover:bg-red-600 px-4 rounded-[4px] transition ease-linear `} to='/contact'>Contact Us</NavLink>
-                <NavLink className={ ({isActive})=>isActive?' text-white bg-red-600 px-4 rounded-[4px] transition ease-linear':` hover:text-white hover:bg-red-600 px-4 rounded-[4px] transition ease-linear `} to='/login'>Log In</NavLink>
+                {
+                    status? <NavLink className={ ({isActive})=>isActive?' text-white bg-red-600 px-4 rounded-[4px] transition ease-linear':` hover:text-white hover:bg-red-600 px-4 rounded-[4px] transition ease-linear `} to='/home'>Profile</NavLink>
+                    :
+                    <NavLink className={ ({isActive})=>isActive?' text-white bg-red-600 px-4 rounded-[4px] transition ease-linear':` hover:text-white hover:bg-red-600 px-4 rounded-[4px] transition ease-linear `} to='/login'>Log In</NavLink>  
+                }
             </div>
         </>
         
