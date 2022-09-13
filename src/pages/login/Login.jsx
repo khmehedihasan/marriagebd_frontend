@@ -1,21 +1,37 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import { Button1, Form, FormContainer, Input } from '../../components/Input';
 import { Alert2, AlertContainer } from '../../components/Alert';
 import Nav from '../../components/Nav';
 import { useState } from 'react';
-
+import url from '../../url';
 function Login(){
 
     const [input, setInput] = useState({ email:'', password:''});
     const [alert, setAlert] = useState([]);
     const [attempt, setAttempt] = useState(0)
+    const navigate = useNavigate();
 
     function save(){
         if( input.email === '' || input.password === ''){
             setAlert((alert)=>[...alert, <Alert2 key={ Date.now()} title="Faild!" message='All fields are required!' />]);
         }else{
+
+            fetch(`${url}/login`,{
+                method:"POST",
+                mode:"cors",
+                credentials:'include',
+                body:JSON.stringify(input),
+            }).then((data)=>data.json()).then((data)=>{
+                if(data.status === true){
+                    document.cookie = `user = ${data.id} ; max-age=3400; path=/`;
+                    navigate('/home');  
+                }else{
+                    setAlert((alert)=>[...alert, <Alert2 key={ Date.now()} title="Faild!" message={data.message} />]);
+                }
+            });
+
             setAttempt((count)=> count+1);
         }
     }
