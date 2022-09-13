@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import firstLoad from './hooks/firstLoad';
-import Home from './pages/Home';
+import Index from './pages/Index';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Login from './pages/login/Login';
@@ -14,24 +14,39 @@ import Step6 from './pages/signup/Step6';
 import Step7 from './pages/signup/Step7';
 import Verify from './pages/signup/Verify';
 import Forgot from './pages/login/Forgot';
+import Verify2 from './pages/login/Verify';
+import NewPassword from './pages/login/NewPassword';
+import IsLogIn from './pages/login/IsLogIn';
+import IsLogOut from './pages/login/IsLogOut';
+import Home from './pages/Home';
 
 function App() {
   firstLoad();
   return (
     <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Index />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/signup/step_2' element={<Step2 />} />
-        <Route path='/signup/step_3' element={<Step3 />} />
-        <Route path='/signup/step_4' element={<Step4 />} />
-        <Route path='/signup/step_5' element={<Step5 />} />
-        <Route path='/signup/step_6' element={<Step6 />} />
-        <Route path='/signup/step_7' element={<Step7 />} />
-        <Route path='/signup/verify/:id' element={<Verify />} />
-        <Route path='/logIn/forgotPassword' element={<Forgot />} />
+
+        <Route path='/' element={<IsLogOut />}>
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/signup/step_2' element={<Step2 />} />
+          <Route path='/signup/step_3' element={<Step3 />} />
+          <Route path='/signup/step_4' element={<Step4 />} />
+          <Route path='/signup/step_5' element={<Step5 />} />
+          <Route path='/signup/step_6' element={<Step6 />} />
+          <Route path='/signup/step_7' element={<Step7 />} />
+          <Route path='/signup/verify/:id' element={<Verify />} />
+          <Route path='/login/forgotPassword' element={<Forgot />} />
+          <Route path='/login/code/:id' element={<Verify2 />} />
+          <Route path='/login/newPassword/:token/:id' element={<NewPassword />} />
+        </Route>
+
+        <Route path='/' element={<IsLogIn />}>
+          <Route path='/home' element={<Home />} />
+        </Route>
+
     </Routes>
   );
 }
