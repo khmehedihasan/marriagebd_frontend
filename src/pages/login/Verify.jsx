@@ -24,20 +24,16 @@ function Verify(){
         if( input.code === ''){
             setAlert((alert)=>[...alert, <Alert2 key={ Date.now()} title="Faild!" message='All fields are required!' />]);
         }else{
-;
 
-            fetch(`${url}/verify/${id}`,{
-                method:"PUT",
+            fetch(`${url}/login/varifyCode/${id}`,{
+                method:"POST",
                 mode:"cors",
                 credentials:'include',
                 body:JSON.stringify(input),
             }).then((data)=>data.json()).then((data)=>{
                 if(data.status === true){
-                    setAlert((alert)=>[...alert, <Alert1 key={ Date.now()} title="Successful" message="Your email varification is successful." />]);
-                    setTimeout(() => {
-                        localStorage.removeItem("userInfo");
-                        navigate('/login');  
-                    },6000);
+                    setAlert((alert)=>[...alert, <Alert1 key={ Date.now()} title="Successful" message="Code varified successfully." />]);
+                    navigate(`/login/newPassword/${data.token}/${id}`);  
                 }else{
                     setAlert((alert)=>[...alert, <Alert2 key={ Date.now()} title="Faild!" message={data.message} />]);
                 }
@@ -47,18 +43,18 @@ function Verify(){
 
     function newCode(){
 
-        fetch(`${url}/verify/resend/${id}`,{
+        fetch(`${url}/login/resend/${id}`,{
             method:"GET",
             mode:"cors",
             credentials:'include',
         }).then((data)=>data.json()).then((data)=>{
+
             if(data.status === true){
                 setAlert((alert)=>[...alert, <Alert1 key={ Date.now()} title="Successful" message="New code has been sent to your email." />]);
             }else{
                 setAlert((alert)=>[...alert, <Alert2 key={ Date.now()} title="Faild!" message={data.message} />]);
             }
         })
-        // setAlert((alert)=>[...alert, <Alert1 key={ Date.now()} title="Successful" message="New code has been sent to your email." />]);
     }
 
 
