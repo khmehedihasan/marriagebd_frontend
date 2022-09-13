@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import Nav from '../../components/Nav';
-import { Alert1, Alert2, AlertContainer } from '../../components/Alert';
+import { Alert2, AlertContainer } from '../../components/Alert';
 import { Form, FormContainer, Button1, Input } from '../../components/Input';
 import url from '../../url';
 
@@ -32,8 +32,7 @@ function Forgot(){
                 body:JSON.stringify(input),
             }).then((data)=>data.json()).then((data)=>{
                 if(data.status === true){
-                    // setAlert((alert)=>[...alert, <Alert1 key={ Date.now()} title="Successful" message="Your email varification is successful." />]);
-
+                    navigate('/login/code/'+data.id);
                 }else{
                     setAlert((alert)=>[...alert, <Alert2 key={ Date.now()} title="Faild!" message={data.message} />]);
                 }
