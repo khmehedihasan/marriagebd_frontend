@@ -5,7 +5,7 @@ import useAuth from '../../hooks/useAuth';
 function IsLogOut(){
     const { status } = useAuth();
     
-    return(status? <Navigate to="/home" />: <Outlet />)
+    return(status? <Navigate to="/profile" />: <Outlet />)
 }
 
 export default IsLogOut;
