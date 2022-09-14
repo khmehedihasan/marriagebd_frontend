@@ -26,7 +26,7 @@ function Login(){
             }).then((data)=>data.json()).then((data)=>{
                 if(data.status === true){
                     document.cookie = `user = ${data.id} ; max-age=3400; path=/`;
-                    navigate('/home');  
+                    navigate('/profile');  
                 }else{
                     setAlert((alert)=>[...alert, <Alert2 key={ Date.now()} title="Faild!" message={data.message} />]);
                 }
