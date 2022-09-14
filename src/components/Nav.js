@@ -39,7 +39,7 @@ function Nav(){
                         <NavLink className={ ({isActive})=>isActive?' text-red-600 border-b border-red-600 transition ease-linear':` hover:text-red-600 border-b border-transparent hover:border-red-600 transition ease-linear `} to='/about'>About Us</NavLink>
                         <NavLink className={ ({isActive})=>isActive?' text-red-600 border-b border-red-600 transition ease-linear':` hover:text-red-600 border-b border-transparent hover:border-red-600 transition ease-linear `} to='/contact'>Contact Us</NavLink>
                         {
-                            status?<NavLink className={ ({isActive})=>isActive?' text-red-600 border-b border-red-600 transition ease-linear':` hover:text-red-600 border-b border-transparent hover:border-red-600 transition ease-linear `} to='/home'>Profile</NavLink>
+                            status?<NavLink className={ ({isActive})=>isActive?' text-red-600 border-b border-red-600 transition ease-linear':` hover:text-red-600 border-b border-transparent hover:border-red-600 transition ease-linear `} to='/profile'>Profile</NavLink>
                             :
                             <NavLink className={ ({isActive})=>isActive?' text-red-600 border-b border-red-600 transition ease-linear':` hover:text-red-600 border-b border-transparent hover:border-red-600 transition ease-linear `} to='/login'>Log In</NavLink>
                         }
@@ -52,7 +52,7 @@ function Nav(){
                 <NavLink className={ ({isActive})=>isActive?' text-white bg-red-600 px-4 rounded-[4px] transition ease-linear':` hover:text-white hover:bg-red-600 px-4 rounded-[4px] transition ease-linear `} to='/about'>About Us</NavLink>
                 <NavLink className={ ({isActive})=>isActive?' text-white bg-red-600 px-4 rounded-[4px] transition ease-linear':` hover:text-white hover:bg-red-600 px-4 rounded-[4px] transition ease-linear `} to='/contact'>Contact Us</NavLink>
                 {
-                    status? <NavLink className={ ({isActive})=>isActive?' text-white bg-red-600 px-4 rounded-[4px] transition ease-linear':` hover:text-white hover:bg-red-600 px-4 rounded-[4px] transition ease-linear `} to='/home'>Profile</NavLink>
+                    status? <NavLink className={ ({isActive})=>isActive?' text-white bg-red-600 px-4 rounded-[4px] transition ease-linear':` hover:text-white hover:bg-red-600 px-4 rounded-[4px] transition ease-linear `} to='/profile'>Profile</NavLink>
                     :
                     <NavLink className={ ({isActive})=>isActive?' text-white bg-red-600 px-4 rounded-[4px] transition ease-linear':` hover:text-white hover:bg-red-600 px-4 rounded-[4px] transition ease-linear `} to='/login'>Log In</NavLink>  
                 }
