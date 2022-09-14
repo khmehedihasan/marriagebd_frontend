@@ -18,7 +18,9 @@ import Verify2 from './pages/login/Verify';
 import NewPassword from './pages/login/NewPassword';
 import IsLogIn from './pages/login/IsLogIn';
 import IsLogOut from './pages/login/IsLogOut';
-import Home from './pages/Home';
+import Profile from './pages/Profile';
+import LiveChat from './pages/LiveChat';
+import Settings from './pages/Settings';
 
 function App() {
   firstLoad();
@@ -44,7 +46,9 @@ function App() {
         </Route>
 
         <Route path='/' element={<IsLogIn />}>
-          <Route path='/home' element={<Home />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/liveChat' element={<LiveChat />} />
+          <Route path='/settings' element={<Settings />} />
         </Route>
 
     </Routes>
