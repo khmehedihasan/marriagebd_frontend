@@ -1,13 +1,13 @@
 import React from 'react';
 import MultiRangeSlider from './MultiRangeSlider'
-import { useState } from 'react';
 
-function Range({min, max, value}){
+function Range({min, max, value, height}){
 
     return (
         <MultiRangeSlider
-          min={18}
-          max={60}
+          height={height}
+          min={min}
+          max={max}
           onChange={({ min, max }) => value({min,max})}
         />
       );
