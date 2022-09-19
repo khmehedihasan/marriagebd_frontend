@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 function Step5(){
 
 
-    const [input, setInput] = useState({physicalDetails:'', weight:'50 Kg', height:"5'", blood:'B+', bodyType:'Average', complexion:'Fair'});
+    const [input, setInput] = useState({physicalDetails:'', weight:'50', height:'50', blood:'B+', bodyType:'Average', complexion:'Fair'});
     const [alert, setAlert] = useState([]);
     const navigate = useNavigate();
     const height = useSelector((state)=>state.filter.height);
@@ -56,7 +56,7 @@ function Step5(){
                     <Select onChange={(e)=> set(e)} name="height" value={input.height} id="height" label="Height:">
                         {
                             height.map((data, index)=>{
-                                return(<Option key={index} value={data} >{data}</Option>);
+                                return(<Option key={index} value={data} >{`${data.toString()[0]}' ${data.toString()[1]}"`}</Option>);
                             })
                         }
                     </Select>
@@ -64,7 +64,7 @@ function Step5(){
                     <Select onChange={(e)=> set(e)} name="weight" value={input.weight} id="weight" label="Weight:">
                         {
                             weight.map((data, index)=>{
-                                return(<Option key={index} value={data} >{data}</Option>);
+                                return(<Option key={index} value={data} >{`${data} Kg`}</Option>);
                             })
                         }
                     </Select>
