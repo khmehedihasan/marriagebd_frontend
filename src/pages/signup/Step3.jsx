@@ -83,6 +83,7 @@ function Step3(){
                     <Textarea onChange={(e)=> set(e)} className=" border border-red-600 rounded-sm outline-1 outline-blue-500 text-red-500 py-1 px-2" value={input.professionDetails} type="text" name="professionDetails" id="professionDetails" placeholder="Enter your profession details:" label="Profession Details:" />
 
                     <Select onChange={(e)=> set(e)} name="income" value={input.income} id="income" label="Monthly Income:">
+                        <Option value="BDT 0k" > BDT 0</Option>
                         <Option value="BDT 10k to 20k" > BDT 10k to 20k</Option>
                         <Option value="BDT 21k to 40k" > BDT 21k to 40k</Option>
                         <Option value="BDT 41k to 60k" > BDT 41k to 60k</Option>
