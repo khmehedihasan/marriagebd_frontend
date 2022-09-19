@@ -3,7 +3,7 @@ import classnames from "classnames";
 import PropTypes from "prop-types";
 import "./multiRangeSlider.css";
 
-const MultiRangeSlider = ({ min, max, onChange }) => {
+const MultiRangeSlider = ({ min, max, onChange, height }) => {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef(null);
@@ -76,13 +76,23 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
         }}
         className="thumb thumb--zindex-4"
       />
+      {
+        height?
+        <div className="slider">
+          <div className="slider__track" />
+          <div ref={range} className="slider__range" />
+          <div className="slider__left-value">{`${minVal.toString()[0]}' ${minVal.toString()[1]}"`}</div>
+          <div className="slider__right-value">{`${maxVal.toString()[0]}' ${maxVal.toString()[1]}"`}</div>
+        </div>
+      :
+        <div className="slider">
+          <div className="slider__track" />
+          <div ref={range} className="slider__range" />
+          <div className="slider__left-value">{minVal}</div>
+          <div className="slider__right-value">{maxVal}</div>
+        </div>
 
-      <div className="slider">
-        <div className="slider__track" />
-        <div ref={range} className="slider__range" />
-        <div className="slider__left-value">{minVal}</div>
-        <div className="slider__right-value">{maxVal}</div>
-      </div>
+      }
     </div>
   );
 };
