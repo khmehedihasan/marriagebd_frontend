@@ -5,7 +5,6 @@ function Drawer({height, children, title}){
     const [style, setStyle] = useState({container:`${height}`, content:'rotate-0'});
 
     function toggleStyle(){
-        console.log(style)
         if(style.container === `${height}`){
             setStyle({container:'0px', content:'rotate-90'});
         }else{
@@ -19,7 +18,7 @@ function Drawer({height, children, title}){
                 <span>{title}</span>
                 <i className={`fa-solid fa-angle-right ${style.content} transition-all ease-in-out duration-700`}></i>
             </div>
-            <div style={{height: style.container}} className={` w-full bg-slate-50  transition-all ease-in-out duration-700 overflow-hidden rounded-bl-md rounded-br-md`}>
+            <div style={{height: style.container}} className={` w-full bg-slate-50  transition-all ease-in-out duration-700 overflow-hidden rounded-bl-md rounded-br-md overflow-y-auto`}>
                 {
                     children
                 }
