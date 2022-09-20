@@ -6,7 +6,7 @@ import Drawer from '../components/Drawer';
 import Range from '../components/Range/Range';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { GET_CITY, GET_CITY_ALL, GET_EDU, GET_EDU_ALL, GET_WS, GET_WS_ALL } from '../store/actions/search'
+import { GET_CITY, GET_CITY_ALL, GET_EDU, GET_EDU_ALL, GET_WS, GET_WS_ALL, GET_PA, GET_PA_ALL, GET_LC, GET_LC_ALL, GET_AGE, GET_HEI } from '../store/actions/search'
 import { useEffect } from 'react';
 
 
@@ -24,6 +24,19 @@ function Search(){
     const sWorking_sector = useSelector((state)=> state.working_sector);
     const [checkWs, setCheckWs] = useState(true);
 
+    const professional_area = useSelector((state)=> state.filter.professional_area);
+    const sProfessional_area = useSelector((state)=> state.professional_area);
+    const [checkPa, setCheckPa] = useState(true);
+
+    const living_country = useSelector((state)=> state.filter.living_country);
+    const sLiving_country = useSelector((state)=> state.living_country);
+    const [checkLc, setCheckLc] = useState(true);
+
+    const heightMin = useSelector((state)=> state.heightMin);
+    const heightMax = useSelector((state)=> state.heightMax);
+
+    const ageMin = useSelector((state)=> state.ageMin);
+    const ageMax = useSelector((state)=> state.ageMax);
 
     useEffect(()=>{
 
@@ -66,8 +79,47 @@ function Search(){
 
     },[sWorking_sector, working_sector, dispatch]);
 
+    useEffect(()=>{
 
-    console.log(working_sector.length)
+        if(sProfessional_area.length === 17 || sProfessional_area.length === 0){
+            setCheckPa(true);
+            if(sProfessional_area.length === 0){
+                dispatch(GET_PA_ALL(professional_area))
+            }
+        }else{
+            setCheckPa(false);
+        }
+
+    },[sProfessional_area, professional_area, dispatch]);
+
+    useEffect(()=>{
+
+        if(sLiving_country.length === 38 || sLiving_country.length === 0){
+            setCheckLc(true);
+            if(sLiving_country.length === 0){
+                dispatch(GET_LC_ALL(living_country))
+            }
+        }else{
+            setCheckLc(false);
+        }
+
+    },[sLiving_country, living_country, dispatch]);
+
+
+
+    useEffect(()=>{
+        console.log(heightMin)
+        console.log(heightMax)
+        console.log("------------------------")
+        console.log(ageMin)
+        console.log(ageMax)
+    },[heightMin, heightMax, ageMin, ageMax])
+
+    
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    },[])
+
 
 
     return(
@@ -91,13 +143,13 @@ function Search(){
                                 </div>
                             </Drawer>
                             <Drawer title="Age" height="100px">
-                                <Range min={18} max={60} value={({min, max})=>console.log(max)} />
+                                <Range min={18} max={60} value={({min, max})=>dispatch(GET_AGE({min,max}))} />
                             </Drawer>
                             <Drawer title="Height" height="100px">
-                                <Range min={30} max={89} height={true} value={({min, max})=>console.log(max)} />
+                                <Range min={30} max={89} height={true} value={({min, max})=>dispatch(GET_HEI({min,max}))} />
                             </Drawer>
-                            <Drawer title="Home Division" height="270px">
-                                <div className=" flex flex-col w-full p-2 text-lg">
+                            <Drawer title="Home Division" height="250px">
+                                <div className=" flex flex-col w-full p-2 text-base">
                                     <div>
                                         <input onChange={()=>dispatch(GET_CITY_ALL(home_division))} checked={check} className=" accent-red-500 cursor-pointer" type="checkbox" name="All" value="All" id="All" /><label className=" cursor-pointer" htmlFor="All"> All</label>
                                     </div>
@@ -113,10 +165,10 @@ function Search(){
                                 </div>
                             </Drawer>
 
-                            <Drawer title="Education" height="330px">
-                                <div className=" flex flex-col w-full p-2 text-lg">
+                            <Drawer title="Education" height="290px">
+                                <div className=" flex flex-col w-full p-2 text-base">
                                     <div>
-                                        <input onChange={()=>dispatch(GET_CITY_ALL(education))} checked={checkEdu} className=" accent-red-500 cursor-pointer" type="checkbox" name="All" value="All" id="All" /><label className=" cursor-pointer" htmlFor="All"> All</label>
+                                        <input onChange={()=>dispatch(GET_EDU_ALL(education))} checked={checkEdu} className=" accent-red-500 cursor-pointer" type="checkbox" name="All" value="All" id="All" /><label className=" cursor-pointer" htmlFor="All"> All</label>
                                     </div>
                                     {
                                         education.map((data,index)=>{
@@ -129,16 +181,48 @@ function Search(){
                                     }
                                 </div>
                             </Drawer>
-                            <Drawer title="Education" height="250px">
-                                <div className=" flex flex-col w-full p-2 text-lg">
+                            <Drawer title="Working Sector" height="190px">
+                                <div className=" flex flex-col w-full p-2 text-base">
                                     <div>
-                                        <input onChange={()=>dispatch(GET_CITY_ALL(education))} checked={checkWs} className=" accent-red-500 cursor-pointer" type="checkbox" name="All" value="All" id="All" /><label className=" cursor-pointer" htmlFor="All"> All</label>
+                                        <input onChange={()=>dispatch(GET_WS_ALL(working_sector))} checked={checkWs} className=" accent-red-500 cursor-pointer" type="checkbox" name="All" value="All" id="All" /><label className=" cursor-pointer" htmlFor="All"> All</label>
                                     </div>
                                     {
                                         working_sector.map((data,index)=>{
                                             return(
                                                 <div key={index}>
                                                     <input onChange={(e)=>dispatch(GET_WS(e.target))} className=" accent-red-500 cursor-pointer" type="checkbox" name={data} value={data} id={data} /><label className=" cursor-pointer" htmlFor={data}> {data}</label>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </Drawer>
+                            <Drawer title="Professional Area" height="475px">
+                                <div className=" flex flex-col w-full p-2 text-base">
+                                    <div>
+                                        <input onChange={()=>dispatch(GET_PA_ALL(professional_area))} checked={checkPa} className=" accent-red-500 cursor-pointer" type="checkbox" name="All" value="All" id="All" /><label className=" cursor-pointer" htmlFor="All"> All</label>
+                                    </div>
+                                    {
+                                        professional_area.map((data,index)=>{
+                                            return(
+                                                <div key={index}>
+                                                    <input onChange={(e)=>dispatch(GET_PA(e.target))} className=" accent-red-500 cursor-pointer" type="checkbox" name={data} value={data} id={data} /><label className=" cursor-pointer" htmlFor={data}> {data}</label>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </Drawer>
+                            <Drawer title="Professional Area" height="475px">
+                                <div className=" flex flex-col w-full p-2 text-base">
+                                    <div>
+                                        <input onChange={()=>dispatch(GET_LC_ALL(living_country))} checked={checkLc} className=" accent-red-500 cursor-pointer" type="checkbox" name="All" value="All" id="All" /><label className=" cursor-pointer" htmlFor="All"> All</label>
+                                    </div>
+                                    {
+                                        living_country.map((data,index)=>{
+                                            return(
+                                                <div key={index}>
+                                                    <input onChange={(e)=>dispatch(GET_LC(e.target))} className=" accent-red-500 cursor-pointer" type="checkbox" name={data} value={data} id={data} /><label className=" cursor-pointer" htmlFor={data}> {data}</label>
                                                 </div>
                                             )
                                         })
