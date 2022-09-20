@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GET_CITY, GET_CITY_ALL, GET_EDU, GET_EDU_ALL, GET_WS, GET_WS_ALL, GET_PA, GET_PA_ALL, GET_LC, GET_LC_ALL, GET_AGE, GET_HEI } from '../store/actions/search'
 import { useEffect } from 'react';
+import url from '../url';
 
 
 function Search(){
@@ -37,6 +38,9 @@ function Search(){
 
     const ageMin = useSelector((state)=> state.ageMin);
     const ageMax = useSelector((state)=> state.ageMax);
+
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
 
     useEffect(()=>{
 
@@ -108,12 +112,30 @@ function Search(){
 
 
     useEffect(()=>{
-        console.log(heightMin)
-        console.log(heightMax)
-        console.log("------------------------")
-        console.log(ageMin)
-        console.log(ageMax)
-    },[heightMin, heightMax, ageMin, ageMax])
+
+         const clear = setTimeout(() => {
+                console.log({"home_division":sHome_division, "education":sEducation, "living_country":sLiving_country, "working_sector":sWorking_sector, "professional_area":sProfessional_area, ageMin, ageMax, heightMin, heightMax});
+
+                fetch(`${url}/search?page=${page}&limit=${limit}`,{
+                    method:"POST",
+                    mode:"cors",
+                    credentials:'include',
+                    body:JSON.stringify({"home_division":sHome_division, "education":sEducation, "living_country":sLiving_country, "working_sector":sWorking_sector, "professional_area":sProfessional_area, ageMin, ageMax, heightMin, heightMax}),
+                }).then((data)=>data.text()).then((data)=>{
+                    console.log(data)
+                    // if(data.status === true){
+    
+                    // }
+                });
+    
+                
+        }, 1000);
+
+        return ()=>{
+            clearTimeout(clear);
+        }
+
+    },[heightMin, heightMax, ageMin, ageMax, sHome_division, sEducation, sLiving_country, sWorking_sector, sProfessional_area, page, limit])
 
     
     useEffect(()=>{
@@ -213,7 +235,7 @@ function Search(){
                                     }
                                 </div>
                             </Drawer>
-                            <Drawer title="Professional Area" height="475px">
+                            <Drawer title="Living Country" height="475px">
                                 <div className=" flex flex-col w-full p-2 text-base">
                                     <div>
                                         <input onChange={()=>dispatch(GET_LC_ALL(living_country))} checked={checkLc} className=" accent-red-500 cursor-pointer" type="checkbox" name="All" value="All" id="All" /><label className=" cursor-pointer" htmlFor="All"> All</label>
