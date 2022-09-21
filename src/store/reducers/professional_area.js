@@ -15,7 +15,7 @@ const initialState = [
     'Medical & Healthcare',
     'Sales & Marketing',
     'Business & Others',
-    'Not Working'
+    'Not-Working'
   ];
 
 function search(state = initialState, action){

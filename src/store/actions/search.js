@@ -41,3 +41,7 @@ export function GET_AGE(data){
 export function GET_HEI(data){
     return({type:"GET_HEI", data});
 }
+
+export function GET_GEN(data){
+    return({type:"GET_GEN", data});
+}

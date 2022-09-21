@@ -9,6 +9,7 @@ import heightMin from "./heightMin";
 import heightMax from "./heightMax";
 import ageMin from "./ageMin";
 import ageMax from "./ageMax";
+import gender from "./gender";
 
 const rootReducer = combineReducers({
     filter,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
     heightMin,
     heightMax,
     ageMin,
-    ageMax
+    ageMax,
+    gender
 });
 
 export default rootReducer;
