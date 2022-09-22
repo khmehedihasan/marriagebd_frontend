@@ -115,8 +115,6 @@ function Search(){
 
     },[sLiving_country, living_country, dispatch]);
 
-    console.log(data)
-
     useEffect(()=>{
 
          const clear = setTimeout(() => {
@@ -288,6 +286,8 @@ function Search(){
                             {
                                 data.data.map((user,index)=>{
 
+                                    // console.log(user)
+
 
                                     const getAge = (date)=>{
 
@@ -329,8 +329,8 @@ function Search(){
                                                         </div>
                                                     </div>
                                                     <div className=" w-[40px] h-full border-l flex flex-col gap-2 justify-start items-center">
-                                                        <Link to="/profile" className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-address-card"></i></Link>
-                                                        <Link to="/liveChat" className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-comments"></i></Link>
+                                                        <Link to="/profile/" className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-address-card"></i></Link>
+                                                        <Link to={"/liveChat/"+user._id} className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-comments"></i></Link>
                                                         <Link to="" className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-envelope"></i></Link>
                                                         <Link to="" className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-heart"></i></Link>
                                                     </div>
