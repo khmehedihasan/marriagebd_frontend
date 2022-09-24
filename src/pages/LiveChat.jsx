@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import BgContainer from '../components/BgContainer';
 import NavHome from '../components/NavHome';
 import female from '../assets/images/female.png';
@@ -7,6 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import useAuth from '../hooks/useAuth';
 import { useEffect } from 'react';
+import io from 'socket.io-client';
 function LiveChat(){
 
     const {id} = useParams();
@@ -14,21 +15,49 @@ function LiveChat(){
     const [message, setMessage] = useState("");
     const [messageData, setMessageData] = useState([]);
     const [friend, setFriend] = useState([]);
+    const divRef = useRef(null);
+    // const [receiver, setReceiver] = useState({});
+    const socket = io.connect("http://localhost:8000");
 
 
     function send(){
 
-        fetch(`${url}/chat`,{
-            method:"POST",
-            mode:"cors",
-            credentials:'include',
-            body:JSON.stringify({senderId:uid, receiverId:id, message}),
-        }).then((data)=>data.json()).then((data)=>{
-            console.log(data)
-        });
+        // fetch(`${url}/chat`,{
+        //     method:"POST",
+        //     mode:"cors",
+        //     credentials:'include',
+        //     body:JSON.stringify({senderId:uid, receiverId:id, message}),
+        // }).then((data)=>data.json()).then((data)=>{
+        //     console.log(data)
+        // });
+
+        socket.emit("send_message",{senderId:uid, receiverId:id, message});
+        setMessageData((mData)=> [...mData, {senderId:uid, receiverId:id, message}]);
 
         setMessage("")
     }
+
+    useEffect(()=>{
+        socket.emit("join_chat", uid);
+    },[]);
+
+
+    socket.on("receive_message",(data)=>{
+        setMessageData((mData)=> [...mData, data]);
+        // console.log([...messageData, data]);
+        // console.log(data)
+        // console.log(" /")
+        // console.log(messageData)
+        // console.log(socket)
+        console.log("messageData")
+    });
+
+        console.log("messageData")
+
+
+    console.log(messageData)
+
+
 
 
     useEffect(()=>{
@@ -40,6 +69,7 @@ function LiveChat(){
         }).then((data)=>data.json()).then((data)=>{
             if(data.status === true){
                 setMessageData(data.data);
+                // console.log(data.data)
             }
         });
     },[uid, id]);
@@ -55,9 +85,10 @@ function LiveChat(){
         });
     },[uid]);
 
-    console.log(friend)
-    
-
+    useEffect(() => {
+        const scroll = divRef.current.scrollHeight -divRef.current.clientHeight;
+       divRef.current.scrollTo(0, scroll);
+    });
 
     return(
         <>
@@ -76,7 +107,7 @@ function LiveChat(){
                         <Link to="/liveChat" className=" text-3xl cursor-pointer"><i className="fa-solid fa-arrow-left"></i></Link>
                         <div className=" w-max h-12 p-1 rounded-md flex items-center gap-4 cursor-pointer"> <img className=" w-12 h-12 rounded-full" src={female} alt="" /> <span>Sadia Aktar Mitu</span></div>
                     </div>
-                    <div className=" w-full h-full pt-20 pb-40 p-4 overflow-auto relative">
+                    <div ref={divRef} className=" w-full h-full pt-20 pb-40 p-4 overflow-auto relative">
                         {
                             messageData.map((data,index)=>{
                                 return(
