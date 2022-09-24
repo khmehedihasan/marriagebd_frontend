@@ -3,8 +3,14 @@ import BgContainer from '../components/BgContainer';
 import NavHome from '../components/NavHome';
 import female from '../assets/images/female.png';
 import url from '../url';
-function LiveChatD(){
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
+function LiveChatD(){
+    const [friend, setFriend] = useState([]);
+    const {id : uid} = useAuth();
 
     function send(){
         fetch(`${url}/chat`,{
@@ -17,6 +23,18 @@ function LiveChatD(){
         });
     }
 
+    
+    useEffect(()=>{
+
+        fetch(`${url}/chat/friends?senderId=${uid}`,{
+            method:"GET",
+            mode:"cors",
+            credentials:'include',
+        }).then((data)=>data.json()).then((data)=>{
+            setFriend(data.data)
+        });
+    },[uid]);
+
 
     return(
         <>
@@ -24,11 +42,11 @@ function LiveChatD(){
           <BgContainer>
             <div className=" md:w-[700px] lg:w-[1000px] xl:w-[1200px] h-[85vh] -mt-10 -mb-28 mx-auto flex justify-between">
                 <div className=" w-[320px] h-full border-[10px] border-l-2 border-r-2 border-slate-500 rounded-md shrink-0 p-2 flex flex-col gap-4 overflow-auto">
-                    <div className=" w-full h-12 bg-slate-400 p-1 rounded-md flex items-center gap-4 cursor-pointer"> <img className=" w-10 h-10 rounded-full" src={female} alt="" /> <span>Sadia Aktar Mitu</span></div>
-                    <div className=" w-full h-12 bg-slate-400 p-1 rounded-md flex items-center gap-4 cursor-pointer"> <img className=" w-10 h-10 rounded-full" src={female} alt="" /> <span>Sangida Jahan Riea</span></div>
-                    <div className=" w-full h-12 bg-slate-400 p-1 rounded-md flex items-center gap-4 cursor-pointer"> <img className=" w-10 h-10 rounded-full" src={female} alt="" /> <span>Sangida Jahan Riea</span></div>
-                    <div className=" w-full h-12 bg-slate-400 p-1 rounded-md flex items-center gap-4 cursor-pointer"> <img className=" w-10 h-10 rounded-full" src={female} alt="" /> <span>Sangida Jahan Riea</span></div>
-                    <div className=" w-full h-12 bg-slate-400 p-1 rounded-md flex items-center gap-4 cursor-pointer"> <img className=" w-10 h-10 rounded-full" src={female} alt="" /> <span>Sangida Jahan Riea</span></div>
+                    {
+                        friend.map((data,index)=>{
+                            return( <Link key={index} to={"/liveChat/"+data._id} className=" w-full h-12 bg-slate-400 p-1 rounded-md flex items-center gap-4 cursor-pointer"> <img className=" w-10 h-10 rounded-full" src={female} alt="" /> <span>{data.name}</span></Link>)
+                        })
+                    }
                 </div>
                 <div className=" w-full h-full rounded-md ml-4 border-[10px] border-slate-500 relative">
                     <div className=" w-full h-14 z-10 box-content px-1 pr-1 absolute -mt-1 top-0 left-0 bg-slate-500 flex items-center gap-4">
