@@ -16,24 +16,15 @@ function LiveChat(){
     const [messageData, setMessageData] = useState([]);
     const [friend, setFriend] = useState([]);
     const divRef = useRef(null);
-    // const [receiver, setReceiver] = useState({});
+    const [receiver, setReceiver] = useState({});
     const socket = io.connect("http://localhost:8000");
 
 
     function send(){
-
-        // fetch(`${url}/chat`,{
-        //     method:"POST",
-        //     mode:"cors",
-        //     credentials:'include',
-        //     body:JSON.stringify({senderId:uid, receiverId:id, message}),
-        // }).then((data)=>data.json()).then((data)=>{
-        //     console.log(data)
-        // });
-
-        socket.emit("send_message",{senderId:uid, receiverId:id, message});
-        setMessageData((mData)=> [...mData, {senderId:uid, receiverId:id, message}]);
-
+        if(message !== ""){
+            socket.emit("send_message",{senderId:uid, receiverId:id, message});
+            setMessageData((mData)=> [...mData, {senderId:uid, receiverId:id, message}]);
+        }
         setMessage("")
     }
 
@@ -44,18 +35,7 @@ function LiveChat(){
 
     socket.on("receive_message",(data)=>{
         setMessageData((mData)=> [...mData, data]);
-        // console.log([...messageData, data]);
-        // console.log(data)
-        // console.log(" /")
-        // console.log(messageData)
-        // console.log(socket)
-        console.log("messageData")
     });
-
-        console.log("messageData")
-
-
-    console.log(messageData)
 
 
 
@@ -69,7 +49,6 @@ function LiveChat(){
         }).then((data)=>data.json()).then((data)=>{
             if(data.status === true){
                 setMessageData(data.data);
-                // console.log(data.data)
             }
         });
     },[uid, id]);
@@ -81,31 +60,47 @@ function LiveChat(){
             mode:"cors",
             credentials:'include',
         }).then((data)=>data.json()).then((data)=>{
-            setFriend(data.data)
+            
+            let uniqueObjArray = [
+                ...new Map(data.data.map((item) => [item["name"], item])).values(),
+            ];
+            setFriend(uniqueObjArray);
         });
     },[uid]);
 
+    useEffect(()=>{
+
+        fetch(`${url}/user/${id}`,{
+            method:"GET",
+            mode:"cors",
+            credentials:'include',
+        }).then((data)=>data.json()).then((data)=>{
+            
+            setReceiver(data.data);
+        });
+    },[id]);
+
     useEffect(() => {
         const scroll = divRef.current.scrollHeight -divRef.current.clientHeight;
-       divRef.current.scrollTo(0, scroll);
+        divRef.current.scrollTo(0, scroll);
     });
 
     return(
         <>
           <NavHome /> 
           <BgContainer>
-            <div className=" md:w-[700px] lg:w-[1000px] xl:w-[1200px] h-[85vh] -mt-10 -mb-28 mx-auto flex justify-between">
-                <div className=" w-[320px] h-full border-[10px] border-l-2 border-r-2 border-slate-500 rounded-md shrink-0 p-2 flex flex-col gap-4 overflow-auto">
+            <div className=" md:w-[700px] lg:w-[1000px] xl:w-[1200px] h-[85vh] -mt-10 -mb-28 mx-auto flex justify-center">
+                <div className=" w-[320px] h-full hidden md:flex border-[10px] border-l-2 border-r-2 border-slate-500 rounded-md shrink-0 p-2 flex-col gap-4 overflow-auto">
                     {
                         friend.map((data,index)=>{
                             return( <Link key={index} to={"/liveChat/"+data._id} className=" w-full h-12 bg-slate-400 p-1 rounded-md flex items-center gap-4 cursor-pointer"> <img className=" w-10 h-10 rounded-full" src={female} alt="" /> <span>{data.name}</span></Link>)
                         })
                     }
                 </div>
-                <div className=" w-full h-full rounded-md ml-4 border-[10px] border-slate-500 relative">
+                <div className=" w-full h-full rounded-md m-2 md:ml-4 border-[10px] border-slate-500 relative">
                     <div className=" w-full h-14 z-10 box-content px-1 pr-1 absolute -mt-1 top-0 left-0 bg-slate-500 flex items-center gap-4">
                         <Link to="/liveChat" className=" text-3xl cursor-pointer"><i className="fa-solid fa-arrow-left"></i></Link>
-                        <div className=" w-max h-12 p-1 rounded-md flex items-center gap-4 cursor-pointer"> <img className=" w-12 h-12 rounded-full" src={female} alt="" /> <span>Sadia Aktar Mitu</span></div>
+                        <div className=" w-max h-12 p-1 rounded-md flex items-center gap-4 cursor-pointer"> <img className=" w-12 h-12 rounded-full" src={female} alt="" /> <span>{receiver.name}</span></div>
                     </div>
                     <div ref={divRef} className=" w-full h-full pt-20 pb-40 p-4 overflow-auto relative">
                         {

@@ -6,12 +6,13 @@ import Drawer from '../components/Drawer';
 import Range from '../components/Range/Range';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { GET_CITY, GET_CITY_ALL, GET_EDU, GET_EDU_ALL, GET_WS, GET_WS_ALL, GET_PA, GET_PA_ALL, GET_LC, GET_LC_ALL, GET_AGE, GET_HEI, GET_GEN } from '../store/actions/search'
+import { GET_CITY, GET_CITY_ALL, GET_EDU, GET_EDU_ALL, GET_WS, GET_WS_ALL, GET_PA, GET_PA_ALL, GET_LC, GET_LC_ALL, GET_AGE, GET_HEI, GET_GEN } from '../store/actions/search';
 import { useEffect } from 'react';
 import url from '../url';
 import male from '../assets/images/male.png';
 import female from '../assets/images/female.png';
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 
 function Search(){
@@ -44,9 +45,10 @@ function Search(){
     const gender = useSelector((state)=> state.gender);
 
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(10);
+    const [limit, setLimit] = useState(2);
 
-    const [data, setData] = useState({data:[]});
+    const [data, setData] = useState({data:[],next:{},previous:{}});
+    const { status } = useAuth();
 
     useEffect(()=>{
 
@@ -117,21 +119,20 @@ function Search(){
 
     useEffect(()=>{
 
-         const clear = setTimeout(() => {
-                // console.log({gender,"home_division":sHome_division, "education":sEducation, "living_country":sLiving_country, "working_sector":sWorking_sector, "professional_area":sProfessional_area, ageMin, ageMax, heightMin, heightMax});
+        const clear = setTimeout(() => {
 
-                fetch(`${url}/user/search?page=${page}&limit=${limit}`,{
-                    method:"POST",
-                    mode:"cors",
-                    credentials:'include',
-                    body:JSON.stringify({gender,"home_division":sHome_division, "education":sEducation, "living_country":sLiving_country, "working_sector":sWorking_sector, "professional_area":sProfessional_area, ageMin, ageMax, heightMin, heightMax}),
-                }).then((data)=>data.json()).then((data)=>{
-                    
-                    setData(data.result)
-                    // if(data.status === true){
-    
-                    // }
-                });
+            fetch(`${url}/user/search?page=${page}&limit=${limit}`,{
+                method:"POST",
+                mode:"cors",
+                credentials:'include',
+                body:JSON.stringify({gender,"home_division":sHome_division, "education":sEducation, "living_country":sLiving_country, "working_sector":sWorking_sector, "professional_area":sProfessional_area, ageMin, ageMax, heightMin, heightMax}),
+            }).then((data)=>data.json()).then((data)=>{
+                
+                setData(data.result)
+                // if(data.status === true){
+
+                // }
+            });
     
                 
         }, 1000);
@@ -140,12 +141,20 @@ function Search(){
             clearTimeout(clear);
         }
 
-    },[heightMin, heightMax, ageMin, ageMax, sHome_division, sEducation, sLiving_country, sWorking_sector, sProfessional_area, page, limit, gender])
+    },[heightMin, heightMax, ageMin, ageMax, sHome_division, sEducation, sLiving_country, sWorking_sector, sProfessional_area, page, limit, gender]);
+
+
+
+    let buttons = [];
+
+    for(let i = 1; i <= data.totalPage; i++){
+        buttons = [...buttons, <button key={i} onClick={()=>setPage(i)} className={` ${i=== (data.previous.page+1)?' text-red-600':' text-green-600' } h-11 w-11 mr-1`}>{i}</button>]
+    }
 
     
     useEffect(()=>{
         window.scrollTo(0,0)
-    },[])
+    },[]);
 
 
 
@@ -153,7 +162,7 @@ function Search(){
         <>
             <Nav />
                 <BgContainer>
-                    <div className=" w-[320px] sm:w-[430px] md:w-[760px] lg:w-[900px] xl:w-[1200px] mx-auto h-auto flex">
+                    <div className=" w-[320px] sm:w-[430px] md:w-[760px] lg:w-[900px] xl:w-[1200px] mx-auto h-auto flex flex-col md:flex-row">
                         <div className=" w-[300px] h-auto flex flex-col gap-4">
                             <Drawer title="Gender" height="100px">
                                 <div className=" flex text-lg gap-2 p-1 pt-8 pl-4">
@@ -257,37 +266,11 @@ function Search(){
                                 </div>
                             </Drawer>
                         </div>
-                        <div className=" w-full h-atuo  ml-4 rounded-md flex flex-col gap-4">
-                            {/* <div className=" w-full h-[260px] bg-slate-50 flex shadow-xl rounded-md">
-                                <div style={{backgroundImage: `url(${male})`}} className=" w-[230px] h-full relative bg-center bg-no-repeat bg-cover shrink-0 rounded-tl-md rounded-bl-md"></div>
-                                <div className=" w-full h-full flex flex-col justify-between px-4 py-1 bg-slate-50 rounded-tr-md rounded-br-md">
-                                    <div className=" w-full  h-max flex justify-between items-center border-b ">
-                                        <div className=" "><span className=" font-bold text-red-600">Code: </span>s14ds4sd1d4f</div>
-                                        <div><span className=" font-bold text-red-600">Online: </span>12-08-2020</div>
-                                    </div>
-                                    <div className=" w-full h-full mt-1 flex justify-between">
-                                        <div className=" w-full h-full">
-                                            <div className=" "><span className=" font-bold text-red-600">Age: </span>22</div>
-                                            <div className=" "><span className=" font-bold text-red-600">Height: </span>5' 2"</div>
-                                            <div className=" "><span className=" font-bold text-red-600">Religion: </span>Muslim</div>
-                                            <div className=" "><span className=" font-bold text-red-600">Education: </span>Diploma</div>
-                                            <div className=" "><span className=" font-bold text-red-600">Working Sector: </span>Government / Public Sector</div>
-                                            <div className=" "><span className=" font-bold text-red-600">Home Division: </span>Dhaka</div>
-                                        </div>
-                                        <div className=" w-[40px] h-full border-l flex flex-col gap-2 justify-start items-center">
-                                            <Link to="" className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-address-card"></i></Link>
-                                            <Link to="" className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-comments"></i></Link>
-                                            <Link to="" className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-envelope"></i></Link>
-                                            <Link to="" className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-heart"></i></Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
+                        <div className=" w-full h-atuo  md:ml-4 rounded-md flex flex-col gap-4 mt-10 md:mt-0">
                             {
                                 data.data.map((user,index)=>{
 
-                                    // console.log(user)
-
+                                    const bdate = new Date(user.birthDate);
 
                                     const getAge = (date)=>{
 
@@ -309,12 +292,15 @@ function Search(){
                                     }
 
                                     return(
-                                        <div key={index} className=" w-full h-max bg-slate-50 flex shadow-xl rounded-md">
-                                            <div style={{backgroundImage: `url(${(user.gender === "Female")?female:male})`}} className=" w-[230px] h-full relative bg-center bg-no-repeat bg-cover shrink-0 rounded-tl-md rounded-bl-md"></div>
+                                        <div key={index} className=" w-full h-max bg-slate-50 flex flex-col md:flex-row shadow-xl rounded-md">{
+                                            status?<div style={{backgroundImage: `${(user.img === undefined)? `url(${(user.gender === "Female")?female:male})`:`url(${user.img})`}`}} className=" w-[230px] h-[230px] md:h-full mx-auto m-2 md:m-0 relative bg-center bg-no-repeat bg-cover shrink-0 rounded-tl-md rounded-bl-md rounded-tr-md rounded-br-md md:rounded-tr-none md:rounded-br-none"></div>:
+                                            <div style={{backgroundImage: `url(${(user.gender === "Female")?female:male})`}} className=" w-[230px] h-[230px] md:h-full mx-auto m-2 md:m-0 relative bg-center bg-no-repeat bg-cover shrink-0 rounded-tl-md rounded-bl-md rounded-tr-md rounded-br-md md:rounded-tr-none md:rounded-br-none "><div className=" text-red-600 text-center">Login to see photo</div></div>
+                                        }
+
                                             <div className=" w-full h-full flex flex-col justify-between px-4 py-1 bg-slate-50 rounded-tr-md rounded-br-md">
                                                 <div className=" w-full  h-max flex justify-between items-center border-b ">
-                                                    <div className=" "><span className=" font-bold text-red-600">Code: </span>{user.uid}</div>
-                                                    <div><span className=" font-bold text-red-600">Online: </span>12-08-2020</div>
+                                                    <div className=" text-xs sm:text-sm xl:text-base"><span className=" font-bold text-red-600">User Id: </span>{user.uid}</div>
+                                                    <div  className=" text-xs sm:text-sm xl:text-base"><span className=" font-bold text-red-600">Birth Date: </span>{bdate.toDateString()}</div>
                                                 </div>
                                                 <div className=" w-full h-full mt-1 flex justify-between">
                                                     <div className=" w-full h-full">
@@ -340,6 +326,23 @@ function Search(){
                                     )
                                 })
                             }
+                            <div className={` w-full h-max bg-slate-50 shadow-xl rounded-md mb-10 text-red-600 flex flex-col sm:flex-row`}>
+                                <div className=' w-max flex flex-wrap'>
+                                {
+                                    (data.previous.page === 0)? <button className=' h-11 px-2 mr-1 text-gray-400 cursor-not-allowed'>Previous</button>:<button onClick={()=>setPage(data.previous.setPage)} className=' h-11 px-2 mr-1'>Previous</button>
+                                }
+                                    <div  className=' flex flex-wrap'>
+                                        {
+                                            buttons
+                                        }
+                                    </div>
+                                    {
+                                    (data.next.page === 0)?  <button className='h-11 px-2 text-gray-400 cursor-not-allowed'>Next</button>: <button onClick={()=>setPage(data.next.page)} className='h-11 px-2'>Next</button>
+                                    }
+                                
+                                </div>
+                                <div className=' pl-2 sm:pl-8 py-2 mt-0.5'>Showing {(data.previous.page*data.previous.limit)+1} to { (data.next.page === 0)? data.totalData : (data.previous.page+1)*data.previous.limit} of {data.totalData} entries</div>
+                            </div>
                         </div>
                     </div>
                 </BgContainer>

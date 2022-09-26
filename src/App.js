@@ -25,6 +25,7 @@ import Profile from './pages/Profile';
 import LiveChat from './pages/LiveChat';
 import LiveChatD from './pages/LiveChatD';
 import Settings from './pages/Settings';
+import ChangePic from './pages/ChangePic';
 
 function App() {
   firstLoad();
@@ -56,6 +57,7 @@ function App() {
           <Route path='/liveChat' element={<LiveChatD />} />
           <Route path='/liveChat/:id' element={<LiveChat />} />
           <Route path='/settings' element={<Settings />} />
+          <Route path='/changeProfilePicture' element={<ChangePic />} />
         </Route>
 
     </Routes>

@@ -31,7 +31,10 @@ function LiveChatD(){
             mode:"cors",
             credentials:'include',
         }).then((data)=>data.json()).then((data)=>{
-            setFriend(data.data)
+            let uniqueObjArray = [
+                ...new Map(data.data.map((item) => [item["name"], item])).values(),
+            ];
+            setFriend(uniqueObjArray);
         });
     },[uid]);
 
@@ -40,7 +43,7 @@ function LiveChatD(){
         <>
           <NavHome /> 
           <BgContainer>
-            <div className=" md:w-[700px] lg:w-[1000px] xl:w-[1200px] h-[85vh] -mt-10 -mb-28 mx-auto flex justify-between">
+            <div className=" md:w-[700px] lg:w-[1000px] xl:w-[1200px] h-[85vh] -mt-10 -mb-28 mx-auto flex justify-center">
                 <div className=" w-[320px] h-full border-[10px] border-l-2 border-r-2 border-slate-500 rounded-md shrink-0 p-2 flex flex-col gap-4 overflow-auto">
                     {
                         friend.map((data,index)=>{
@@ -48,7 +51,7 @@ function LiveChatD(){
                         })
                     }
                 </div>
-                <div className=" w-full h-full rounded-md ml-4 border-[10px] border-slate-500 relative">
+                <div className=" w-full h-full hidden md:block rounded-md ml-4 border-[10px] border-slate-500 relative">
                     <div className=" w-full h-14 z-10 box-content px-1 pr-1 absolute -mt-1 top-0 left-0 bg-slate-500 flex items-center gap-4">
                     </div>
                         <div className=" w-full h-full bg-[url('../images/chat.png')] bg-no-repeat bg-center bg-auto"></div>
