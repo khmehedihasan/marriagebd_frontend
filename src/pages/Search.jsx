@@ -45,10 +45,11 @@ function Search(){
     const gender = useSelector((state)=> state.gender);
 
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(2);
+    // const [limit, setLimit] = useState(2);
 
-    const [data, setData] = useState({data:[],next:{},previous:{}});
+    const [data, setData] = useState({data:[],next:{},previous:{}, totalPage: 0});
     const { status } = useAuth();
+
 
     useEffect(()=>{
 
@@ -121,17 +122,18 @@ function Search(){
 
         const clear = setTimeout(() => {
 
-            fetch(`${url}/user/search?page=${page}&limit=${limit}`,{
+            fetch(`${url}/user/search?page=${page}&limit=${12}`,{
                 method:"POST",
                 mode:"cors",
                 credentials:'include',
                 body:JSON.stringify({gender,"home_division":sHome_division, "education":sEducation, "living_country":sLiving_country, "working_sector":sWorking_sector, "professional_area":sProfessional_area, ageMin, ageMax, heightMin, heightMax}),
             }).then((data)=>data.json()).then((data)=>{
                 
-                setData(data.result)
-                // if(data.status === true){
-
-                // }
+                if(data.status === true){
+                    setData(data.result)
+                }else{
+                    setData({data:[],next:{limit:0, page:0},previous:{limit:0, page:0}, totalPage:0, totalData:0})
+                }
             });
     
                 
@@ -141,7 +143,7 @@ function Search(){
             clearTimeout(clear);
         }
 
-    },[heightMin, heightMax, ageMin, ageMax, sHome_division, sEducation, sLiving_country, sWorking_sector, sProfessional_area, page, limit, gender]);
+    },[heightMin, heightMax, ageMin, ageMax, sHome_division, sEducation, sLiving_country, sWorking_sector, sProfessional_area, page, gender]);
 
 
 
@@ -315,7 +317,7 @@ function Search(){
                                                         </div>
                                                     </div>
                                                     <div className=" w-[40px] h-full border-l flex flex-col gap-2 justify-start items-center">
-                                                        <Link to="/profile/" className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-address-card"></i></Link>
+                                                        <Link to={"/vewProfile/"+user._id} className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-address-card"></i></Link>
                                                         <Link to={"/liveChat/"+user._id} className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-comments"></i></Link>
                                                         <Link to="" className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-envelope"></i></Link>
                                                         <Link to="" className=" text-2xl text-red-600" ><i className=" pl-1 fa-solid fa-heart"></i></Link>

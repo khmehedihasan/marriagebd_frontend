@@ -97,10 +97,46 @@ function Home(){
                         <h3 className=" pt-3"><i className="fa-regular fa-circle-check text-red-600"></i> Designed with sharia values</h3>
                         <h3 className=" pt-3"><i className="fa-regular fa-circle-check text-red-600"></i> Halal, safe and secured Matrimony site in Bangladesh</h3>
                         <h3 className=" pt-3"><i className="fa-regular fa-circle-check text-red-600"></i> Private, personalized, and highly confidential service</h3>
-                        <h3 className=" pt-3"><i className="fa-regular fa-circle-check text-red-600"></i> Trusted service for more than 16 years</h3>
-                        <button className=" py-1 mt-5 px-3 text-base md:text-lg hover:text-red-600 text-white bg-red-600 hover:bg-transparent border-2 border-transparent hover:border-red-600">Find Your Partner</button>
+                        <h3 className=" pt-3 mb-5"><i className="fa-regular fa-circle-check text-red-600"></i> Trusted service for more than 16 years</h3>
+                        <Link to='/search' className=" py-1 mt-15 px-3 text-base md:text-lg hover:text-red-600 text-white bg-red-600 hover:bg-transparent border-2 border-transparent hover:border-red-600">Find Your Partner</Link>
                     </div>
                     <div className="  w-full h-[400px] md:w-[500px] md:h-[500px] mt-10 md:mt-0 rounded-md bg-pic1 bg-no-repeat bg-contain bg-right"></div>
+                </div>
+            </div>
+            <div className=" p-4 py-10  pt-[700px] md:pt-48 -mt-[600px] md:-mt-32 ">
+                <div className=" md:w-[700px] lg:w-[1000px] xl:w-[1200px] mx-auto flex md:items-center justify-between flex-col">
+                    <div>
+                        <h1 className=" text-3xl font-bold text-center"><span className=' text-red-600'>Membership</span> Plans</h1>
+                        <p className=" text-center">Primarily it's free to search any profiles. Upgrade For customized the search. With a paid membership, you can seamlessly connect with your prospects and get more responses. Many have found their love. Are you ready to meet your Soul Mate?</p>
+                    </div>
+                    <div className=" py-10 flex flex-col md:flex-row items-center gap-6">
+                        <div className=" w-[400px] h-[500px] bg-slate-100 rounded-md shadow-md p-10">
+                            <h1 className=" text-3xl font-bold text-red-600 uppercase mb-10">Free Plan</h1>
+                            <div className=" flex flex-col gap-4 pb-6">
+                                <div className=" text-lg"><i className="fa-solid fa-circle-check text-green-700"></i><span> Create Profile</span></div>
+                                <div className=" text-lg"><i className="fa-solid fa-circle-check text-green-700"></i><span> Search Profiles</span></div>
+                                <div className=" text-lg"><i className="fa-solid fa-circle-check text-green-700"></i><span> View Profiles</span></div>
+                                <div className=" text-lg"><i className="fa-solid fa-circle-check text-green-700"></i><span> See Profile Photo</span></div>
+                                <div className=" text-lg"><i className="fa-solid fa-circle-xmark text-red-600"></i><span> See contact Info</span></div>
+                                <div className=" text-lg"><i className="fa-solid fa-circle-xmark text-red-600"></i><span> Live Chat</span></div>
+                                <div className=" text-lg"><i className="fa-solid fa-circle-xmark text-red-600"></i><span> Get Customer Support</span></div>
+                            </div>
+                            <Link to="/signup" className=" py-2 px-3 text-white bg-red-600 text-xl font-bold rounded-md">Register Free</Link>
+                        </div>
+                        <div className=" w-[400px] h-[500px] bg-red-600 rounded-md shadow-md p-10 text-white">
+                            <h1 className=" text-3xl font-bold text-white uppercase mb-10">Paid Plan</h1>
+                            <div className=" flex flex-col gap-4 pb-6">
+                                <div className=" text-lg"><i className="fa-solid fa-circle-check text-slate-50"></i><span> Create Profile</span></div>
+                                <div className=" text-lg"><i className="fa-solid fa-circle-check text-slate-50"></i><span> Search Profiles</span></div>
+                                <div className=" text-lg"><i className="fa-solid fa-circle-check text-slate-50"></i><span> View Profiles</span></div>
+                                <div className=" text-lg"><i className="fa-solid fa-circle-check text-slate-50"></i><span> See Profile Photo</span></div>
+                                <div className=" text-lg"><i className="fa-solid fa-circle-check text-slate-50"></i><span> See Contact Info</span></div>
+                                <div className=" text-lg"><i className="fa-solid fa-circle-check text-slate-50"></i><span> Live Chat</span></div>
+                                <div className=" text-lg"><i className="fa-solid fa-circle-check text-slate-50"></i><span> Get Customer Support</span></div>
+                            </div>
+                            <Link to="/package" className=" py-2 px-3 bg-white text-red-600 text-xl font-bold rounded-md">Paid Plans</Link>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className=" md:w-[700px] lg:w-[1000px] xl:w-[1200px] mx-auto flex items-center justify-between">

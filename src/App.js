@@ -26,6 +26,8 @@ import LiveChat from './pages/LiveChat';
 import LiveChatD from './pages/LiveChatD';
 import Settings from './pages/Settings';
 import ChangePic from './pages/ChangePic';
+import VewProfile from './pages/VewProfile';
+import Package from './pages/Package';
 
 function App() {
   firstLoad();
@@ -39,6 +41,7 @@ function App() {
         <Route path='/login/forgotPassword' element={<Forgot />} />
         <Route path='/login/code/:id' element={<Verify2 />} />
         <Route path='/login/newPassword/:token/:id' element={<NewPassword />} />
+        <Route path='/package' element={<Package />} />
 
         <Route path='/' element={<IsLogOut />}>
           <Route path='/login' element={<Login />} />
@@ -58,6 +61,7 @@ function App() {
           <Route path='/liveChat/:id' element={<LiveChat />} />
           <Route path='/settings' element={<Settings />} />
           <Route path='/changeProfilePicture' element={<ChangePic />} />
+          <Route path='/vewProfile/:id' element={<VewProfile />} />
         </Route>
 
     </Routes>
