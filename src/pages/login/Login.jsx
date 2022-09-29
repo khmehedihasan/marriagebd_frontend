@@ -25,7 +25,9 @@ function Login(){
                 body:JSON.stringify(input),
             }).then((data)=>data.json()).then((data)=>{
                 if(data.status === true){
+                    const dat = new Date(data.packageValidity);
                     document.cookie = `user = ${data.id} ; max-age=3400; path=/`;
+                    document.cookie = `token2 = ${data.id} ; expires=${dat}; path=/`;
                     navigate('/profile');  
                 }else{
                     setAlert((alert)=>[...alert, <Alert2 key={ Date.now()} title="Faild!" message={data.message} />]);

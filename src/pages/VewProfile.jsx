@@ -6,11 +6,13 @@ import NavHome from '../components/NavHome';
 import url from '../url';
 import female from '../assets/images/female.png';
 import male from '../assets/images/male.png';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import usePackageAuth from '../hooks/usePackageAuth';
 
 function VewProfile(){
     const [user, setUser] = useState({birthDate:"0000-00-00T00:00:00.000Z", height:"00"});
     const { id } = useParams();
+    const { status } = usePackageAuth();
 
     useEffect(()=>{
 
@@ -181,13 +183,21 @@ function VewProfile(){
                         <div className=" md:w-[600px] lg:w-[700px] text-sm md:text-base mx-auto flex justify-between ">
                             <div className=" w-1/2">
                                 <div>
-                                    <span className=" font-bold text-xs sm:text-sm md:text-base ">Email: </span><span>{user.email}</span>
+                                    <span className=" font-bold text-xs sm:text-sm md:text-base ">Email: </span>
+                                    {
+                                        status?<span>{user.email}</span>:<Link className=" text-red-600" to='/package'>Buy Pacakage</Link>
+                                    }
+                                    
                                 </div>
                                 <div>
-                                    <span className=" font-bold">Phone: </span><span>{user.phone}</span>
+                                    <span className=" font-bold">Phone: </span>
+                                    {
+                                         status?<span>{user.phone}</span>:<Link className=" text-red-600" to='/package'>Buy Pacakage</Link>
+                                    }
                                 </div>
                                 <div>
-                                    <span className=" font-bold">Living City: </span><span>{user.livingCity}</span>
+                                    <span className=" font-bold">Living City: </span>
+                                    <span>{user.livingCity}</span>
                                 </div>
 
                             </div>

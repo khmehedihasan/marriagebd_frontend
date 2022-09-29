@@ -28,6 +28,9 @@ import Settings from './pages/Settings';
 import ChangePic from './pages/ChangePic';
 import VewProfile from './pages/VewProfile';
 import Package from './pages/Package';
+import Order from './pages/Order';
+import PaymentDetails from './pages/PaymentDetails';
+import IsPackage from './pages/login/IsPackage';
 
 function App() {
   firstLoad();
@@ -57,10 +60,14 @@ function App() {
 
         <Route path='/' element={<IsLogIn />}>
           <Route path='/profile' element={<Profile />} />
-          <Route path='/liveChat' element={<LiveChatD />} />
-          <Route path='/liveChat/:id' element={<LiveChat />} />
+          <Route path='/order/:packag' element={<Order />} />
+          <Route path='/' element={<IsPackage/>}>
+            <Route path='/liveChat' element={<LiveChatD />} />
+            <Route path='/liveChat/:id' element={<LiveChat />} />
+          </Route>
           <Route path='/settings' element={<Settings />} />
           <Route path='/changeProfilePicture' element={<ChangePic />} />
+          <Route path='/paymentDetails' element={<PaymentDetails />} />
           <Route path='/vewProfile/:id' element={<VewProfile />} />
         </Route>
 
