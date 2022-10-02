@@ -1,12 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Nav from '../components/Nav';
+import url from '../url';
 
 
 function Package(){
 
+    const [data, setData] = useState([{name:'', price:0, days:0},{name:'', price:0, days:0},{name:'', price:0, days:0}]);
 
+
+    useEffect(()=>{
+        fetch(`${url}/package/`,{
+          method:"GET",
+          credentials: 'include'
+        }).then((data)=>data.json()).then((data)=>{
+          if(data.status === true){
+            setData(data.result.data);
+          }
+      });
+    },[])
 
     useEffect(()=>{
         window.scrollTo(0,0)
@@ -49,8 +62,8 @@ function Package(){
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[100px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><Link to="/signup" className=" py-[2px] px-2 text-white bg-red-600 text-xs sm:text-sm md:text-lg font-bold rounded-md">Register Free</Link></div>
                         </div>
                         <div>
-                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[80px] bg-red-600 text-white text-sm sm:text-lg md:text-xl font-bold flex items-center border border-slate-300 p-1 md:p-4'><span>Bronze</span></div>
-                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[100px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><span>2000 Tk</span></div>
+                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[80px] bg-red-600 text-white text-sm sm:text-lg md:text-xl font-bold flex items-center border border-slate-300 p-1 md:p-4'><span>{data[2].name}</span></div>
+                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[100px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><span>{data[2].price} Tk</span></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
@@ -58,12 +71,12 @@ function Package(){
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
-                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'>30 Days</div>
+                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'>{data[2].days} Days</div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[100px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><Link to="/order/bronze" className=" py-[2px] px-2 text-white bg-red-600 text-xs sm:text-sm md:text-lg font-bold rounded-md ">Order Now</Link></div>
                         </div>
                         <div>
-                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[80px] bg-red-600 text-white text-sm sm:text-lg md:text-xl font-bold flex items-center border border-slate-300 p-1 md:p-4'><span>Gold</span></div>
-                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[100px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><span>3500 Tk</span></div>
+                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[80px] bg-red-600 text-white text-sm sm:text-lg md:text-xl font-bold flex items-center border border-slate-300 p-1 md:p-4'><span>{data[1].name}</span></div>
+                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[100px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><span>{data[1].price} Tk</span></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
@@ -71,12 +84,12 @@ function Package(){
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
-                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'>60 days</div>
+                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'>{data[1].days} days</div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[100px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><Link to="/order/gold" className=" py-[2px] px-2 text-white bg-red-600 text-xs sm:text-sm md:text-lg font-bold rounded-md ">Order Now</Link></div>
                         </div>
                         <div>
-                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[80px] bg-red-600 text-white text-sm sm:text-lg md:text-xl font-bold flex items-center border border-slate-300 p-1 md:p-4'><span>Diamond</span></div>
-                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[100px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><span>5000 Tk</span></div>
+                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[80px] bg-red-600 text-white text-sm sm:text-lg md:text-xl font-bold flex items-center border border-slate-300 p-1 md:p-4'><span>{data[0].name}</span></div>
+                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[100px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><span>{data[0].price} Tk</span></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
@@ -84,7 +97,7 @@ function Package(){
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><i className="fa-solid fa-check"></i></div>
-                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'>120 Days</div>
+                            <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[60px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'>{data[0].days} Days</div>
                             <div className=' md:w-[112px] lg:w-[187px] xl:w-[250px] h-[100px] text-red-600 text-xs sm:text-sm md:text-lg  font-bold flex items-center justify-center border border-slate-300 p-1 md:p-4'><Link to="/order/diamond" className=" py-[2px] px-2 text-white bg-red-600 text-xs sm:text-sm md:text-lg font-bold rounded-md ">Order Now</Link></div>
                         </div>
                         
