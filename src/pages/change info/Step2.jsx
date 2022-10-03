@@ -31,23 +31,30 @@ function Step2(){
         }
     }
 
-    useEffect(()=>{
-        const data = JSON.parse(localStorage.getItem("userInfo"));
-        if(data.candidateName !== undefined || data.birthDate !== undefined || data.profileFor !== undefined || data.religion !== undefined || data.maritalStatus !== undefined || data.nationality !== undefined || data.gender !== undefined ){
-            setInput({candidateName:data.candidateName, birthDate:data.birthDate, profileFor:data.profileFor, religion:data.religion, nationality:data.nationality, maritalStatus:data.maritalStatus, gender:data.gender});
-        }
-    },[]);
+    // useEffect(()=>{
+    //     const data = JSON.parse(localStorage.getItem("userInfo"));
+    //     if(data.candidateName !== undefined || data.birthDate !== undefined || data.profileFor !== undefined || data.religion !== undefined || data.maritalStatus !== undefined || data.nationality !== undefined || data.gender !== undefined ){
+    //         setInput({candidateName:data.candidateName, birthDate:data.birthDate, profileFor:data.profileFor, religion:data.religion, nationality:data.nationality, maritalStatus:data.maritalStatus, gender:data.gender});
+    //     }
+    // },[]);
 
 
     useEffect(()=>{
         fetch(`${url}/user/${id}`,{
             method:"GET",
             mode:"cors"
-        }).then((data)=>data.json()).then((data)=>{
-            if(data.status === true){
-                localStorage.setItem("userInfo", JSON.stringify(data.data));
+        }).then((data)=>data.json()).then((d)=>{
+            if(d.status === true){
+                localStorage.setItem("userInfo", JSON.stringify(d.data));
+                //--------------------------------------------
+                    const data = JSON.parse(localStorage.getItem("userInfo"));
+                    if(data.candidateName !== undefined || data.birthDate !== undefined || data.profileFor !== undefined || data.religion !== undefined || data.maritalStatus !== undefined || data.nationality !== undefined || data.gender !== undefined ){
+                        setInput({candidateName:data.candidateName, birthDate:data.birthDate, profileFor:data.profileFor, religion:data.religion, nationality:data.nationality, maritalStatus:data.maritalStatus, gender:data.gender});
+                    }
+                //---------------------------------------------------
+
             }else{
-                setAlert((alert)=>[...alert, <Alert2 key={ Date.now()} title="Faild!" message={data.message} />]);
+                setAlert((alert)=>[...alert, <Alert2 key={ Date.now()} title="Faild!" message={d.message} />]);
             }
         })
     },[]);

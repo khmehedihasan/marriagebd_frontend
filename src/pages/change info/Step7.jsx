@@ -36,6 +36,7 @@ function Step7(){
                 body:localStorage.getItem("userInfo")
             }).then((data)=>data.json()).then((data)=>{
                 if(data.status === true){
+                    localStorage.removeItem("userInfo");
                     navigate("/profile");
                 }else{
                     setAlert((alert)=>[...alert, <Alert2 key={ Date.now()} title="Faild!" message={data.message} />]);
